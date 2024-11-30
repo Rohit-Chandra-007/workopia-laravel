@@ -18,10 +18,12 @@
     <x-header />
     @if (request()->is('/'))
         <x-hero />
+        <x-top-banner />
     @endif
 
     {{ $slot }}
     </main>
+
     <script src="{{ asset('/js/script.js') }}"></script>
 </body>
 
