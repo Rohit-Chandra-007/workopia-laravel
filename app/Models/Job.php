@@ -20,9 +20,8 @@ class Job extends Model
         'tags',
         'job_type',
         'remote',
-        'requirement',
-        'responsibility',
-        'benefit',
+        'requirements',
+        'benefits',
         'address',
         'city',
         'state',
@@ -34,6 +33,9 @@ class Job extends Model
         'company_logo',
         'company_website',
     ];
+
+
+
 
     /**
      * Relationship between Job and User

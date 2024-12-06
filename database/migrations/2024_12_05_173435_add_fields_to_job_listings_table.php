@@ -1,11 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use function Laravel\Prompts\table;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,18 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Clear the table Data
+        // clear the table data
         DB::table('job_listings')->truncate();
         Schema::table('job_listings', function (Blueprint $table) {
             //
             $table->unsignedBigInteger('user_id')->after('id');
             $table->integer('salary');
             $table->string('tags')->nullable();
-            $table->enum('job_type', ['Full-Time', 'Part-Time', 'Contract', 'Temporary', 'Internship', 'Voleenter', 'Freelance', 'On-Call'])->default('Full-Time');
+            $table->enum('job_type', ['Full-Time', 'Part-Time', 'Contract', 'Temporary', 'Internship', 'Volunteer', 'On-Call'])->default('Full-Time');
             $table->boolean('remote')->default(false);
-            $table->text('requirement')->nullable();
-            $table->text('responsibility')->nullable();
-            $table->text('benefit')->nullable();
+            $table->text('requirements')->nullable();
+            $table->text('benefits')->nullable();
             $table->string('address')->nullable();
             $table->string('city');
             $table->string('state');
@@ -37,7 +34,7 @@ return new class extends Migration
             $table->string('company_logo')->nullable();
             $table->string('company_website')->nullable();
 
-            // Add foreign key constraint
+            // Add user foriegn key constraint
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -48,10 +45,28 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('job_listings', function (Blueprint $table) {
-            //
+            // remove the foreign key constraint
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->dropColumn(['salary', 'tags', 'job_type', 'remote', 'requirement', 'responsibility', 'benefit', 'address', 'city', 'state', 'zipcode', 'contact_email', 'contact_phone', 'company_name', 'company_description', 'company_logo', 'company_website']);
+            // remove the columns
+            $table->dropColumn([
+                'salary',
+                'tags',
+                'job_type',
+                'remote',
+                'requirements',
+                'benefits',
+                'address',
+                'city',
+                'state',
+                'zipcode',
+                'contact_email',
+                'contact_phone',
+                'company_name',
+                'company_description',
+                'company_logo',
+                'company_website',
+            ]);
         });
     }
 };

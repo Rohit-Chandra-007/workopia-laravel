@@ -47,7 +47,9 @@ class User extends Authenticatable
         ];
     }
 
-
+    /**
+     * Get the job listings for the user.
+     */
     public function jobListings(): HasMany
     {
         return $this->hasMany(Job::class);

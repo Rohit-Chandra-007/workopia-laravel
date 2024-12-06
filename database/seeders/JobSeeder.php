@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,8 +20,8 @@ class JobSeeder extends Seeder
 
         // get user ids
         $userIds = User::pluck('id')->toArray();
-
-        foreach ($jobListings as $jobListing) {
+       
+        foreach ($jobListings as &$jobListing) {
             // assign user_id listings
             $jobListing['user_id'] = $userIds[array_rand($userIds)];
             $jobListing['created_at'] = now();

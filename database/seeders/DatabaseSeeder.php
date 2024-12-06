@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use function Pest\Laravel\call;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,7 @@ class DatabaseSeeder extends Seeder
         DB::table('job_listings')->truncate();
         DB::table('users')->truncate();
 
-        $this->call([
-            RandomUserSeeder::class,
-            RandomJobSeeder::class,
-        ]);
-
-
+        $this->call(RandomUserSeeder::class);
+        $this->call(JobSeeder::class);
     }
 }
